@@ -22,8 +22,10 @@ const baseSchema = {
 
 export const applications = createTable("applications", {
 	id: int("id", { mode: "number" }).primaryKey({ autoIncrement: true }),
+	userId: text("user_id").notNull(),
 	companyName: text("company_name", { length: 256 }).notNull(),
-	vacancyUrl: text("vacancy_url", { length: 256 }),
+	vacancyTitle: text("vacancy_title", { length: 256 }).notNull(),
+	vacancyUrl: text("vacancy_url", { length: 256 }).notNull(),
 	status: text("status").$type<StatusType>().notNull(),
 	files: text("files", { length: 256 }),
 	...baseSchema,

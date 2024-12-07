@@ -15,9 +15,13 @@ export const insertApplicationSchema = createInsertSchema(applications, {
 	status: z.enum(statusValues, {
 		required_error: "Status is required",
 	}),
-	vacancyUrl: z.string().url(),
+	vacancyTitle: z
+		.string({ required_error: "Vacany title is required" })
+		.min(1, { message: "Vacancy title must be at least 1 character long" }),
+	vacancyUrl: z.string({ required_error: "Vacancy url is required" }).url(),
 }).omit({
 	id: true,
+	userId: true,
 	createdAt: true,
 	updatedAt: true,
 })
@@ -28,5 +32,6 @@ export const updateApplicationSchema = createInsertSchema(applications, {
 	}),
 	vacancyUrl: z.string().url(),
 }).omit({
+	userId: true,
 	createdAt: true,
 })

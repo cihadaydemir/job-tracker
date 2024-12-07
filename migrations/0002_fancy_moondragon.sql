@@ -1,0 +1,1 @@
+ALTER TABLE `job-tracker_applications` ADD `vacancy_title` text(256);
