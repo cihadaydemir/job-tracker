@@ -1,20 +1,19 @@
 "use client"
 
-import React from "react"
+import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import type { z } from "zod"
-import { insertApplicationSchema } from "~/server/db/zod"
-import { zodResolver } from "@hookform/resolvers/zod"
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "~/components/ui/form"
+import { insertApplicationSchema } from "~/server/db/zod"
 
 import { Button } from "~/components/ui/button"
-import { statusValues } from "~/server/db/types"
 import { Input } from "~/components/ui/input"
+import { statusValues } from "~/server/db/types"
 
-import { api } from "~/trpc/react"
-import { toast } from "sonner"
 import { useRouter } from "next/navigation"
+import { toast } from "sonner"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "~/components/ui/select"
+import { api } from "~/trpc/react"
 
 interface CreateApplicationFormProps {
 	setIsDialogOpen: (value: boolean) => void
@@ -39,6 +38,7 @@ export const CreateApplicationForm = ({ setIsDialogOpen }: CreateApplicationForm
 			companyName: "",
 			vacancyTitle: "",
 			vacancyUrl: "",
+			files: "",
 			status: "draft",
 		},
 	})
