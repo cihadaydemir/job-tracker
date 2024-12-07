@@ -38,7 +38,7 @@ export const ApplicationTable = ({ applications }: ApplicationTableProps) => {
 
 	const handleDelete = (id: number) => deleteApplicationMutation.mutate(id)
 
-	function handleEdit(id: number): void {}
+	// function handleEdit(id: number){}
 
 	function handleFileUpload(id: number, e: ChangeEvent<HTMLInputElement>): void {
 		throw new Error("Function not implemented.")
@@ -97,9 +97,9 @@ export const ApplicationTable = ({ applications }: ApplicationTableProps) => {
 
 						<TableCell>
 							<div className="flex space-x-2">
-								<Button variant="outline" size="icon" onClick={() => handleEdit(application.id)}>
+								{/* <Button variant="outline" size="icon" onClick={() => handleEdit(application.id)}>
 									<Pencil className="h-4 w-4" />
-								</Button>
+								</Button> */}
 								<Button variant="outline" size="icon" onClick={() => handleDelete(application.id)}>
 									<Trash2 className="h-4 w-4" />
 								</Button>
