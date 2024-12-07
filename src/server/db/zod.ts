@@ -1,6 +1,6 @@
-import { createInsertSchema } from "drizzle-zod";
-import { applications } from "./schema";
-import { z } from "zod";
+import { createInsertSchema } from "drizzle-zod"
+import { applications } from "./schema"
+import { z } from "zod"
 
 export const insertApplicationSchema = createInsertSchema(applications, {
 	status: z.enum(["pending", "accepted", "declined", "interview"], {
@@ -10,4 +10,4 @@ export const insertApplicationSchema = createInsertSchema(applications, {
 }).omit({
 	id: true,
 	createdAt: true,
-});
+})

@@ -1,21 +1,11 @@
-import React from "react";
-import {
-	Table,
-	TableBody,
-	TableCaption,
-	TableCell,
-	TableHead,
-	TableHeader,
-	TableRow,
-} from "~/components/ui/table";
-import { applications } from "~/server/db/schema";
-import type { Application } from "~/server/db/types";
+import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from "~/components/ui/table"
+import type { Application } from "~/server/db/types"
 
 interface ApplicationTableProps {
-	applications: Application[];
+	applications: Application[]
 }
 
-export const ApplicaitonTable = ({ applications }: ApplicationTableProps) => {
+export const ApplicationTable = ({ applications }: ApplicationTableProps) => {
 	return (
 		<Table>
 			<TableCaption>A list of your job applications.</TableCaption>
@@ -30,14 +20,12 @@ export const ApplicaitonTable = ({ applications }: ApplicationTableProps) => {
 			<TableBody>
 				{applications.map((application) => (
 					<TableRow key={application.id}>
-						<TableCell className="font-medium">
-							{application.companyName}
-						</TableCell>
+						<TableCell className="font-medium">{application.companyName}</TableCell>
 						<TableCell>{application.vacancyUrl}</TableCell>
 						<TableCell>{application.status}</TableCell>
 					</TableRow>
 				))}
 			</TableBody>
 		</Table>
-	);
-};
+	)
+}

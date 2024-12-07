@@ -1,7 +1,7 @@
-"use client";
+"use client"
 
-import { zodResolver } from "@hookform/resolvers/zod";
-import { Button } from "~/components/ui/button";
+import { zodResolver } from "@hookform/resolvers/zod"
+import { Button } from "~/components/ui/button"
 import {
 	Dialog,
 	DialogContent,
@@ -10,44 +10,31 @@ import {
 	DialogHeader,
 	DialogTitle,
 	DialogTrigger,
-} from "~/components/ui/dialog";
+} from "~/components/ui/dialog"
 
-import { revalidatePath } from "next/cache";
-import { useForm } from "react-hook-form";
-import type { z } from "zod";
-import {
-	Form,
-	FormControl,
-	FormField,
-	FormItem,
-	FormLabel,
-	FormMessage,
-} from "~/components/ui/form";
-import { Input } from "~/components/ui/input";
-import { insertApplicationSchema } from "~/server/db/zod";
-import { api } from "~/trpc/react";
-import { toast } from "sonner";
-import { useState } from "react";
-import {
-	Select,
-	SelectContent,
-	SelectItem,
-	SelectTrigger,
-	SelectValue,
-} from "~/components/ui/select";
-import { statusValues } from "~/server/db/types";
+import { revalidatePath } from "next/cache"
+import { useForm } from "react-hook-form"
+import type { z } from "zod"
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "~/components/ui/form"
+import { Input } from "~/components/ui/input"
+import { insertApplicationSchema } from "~/server/db/zod"
+import { api } from "~/trpc/react"
+import { toast } from "sonner"
+import { useState } from "react"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "~/components/ui/select"
+import { statusValues } from "~/server/db/types"
 
 export const CreateApplicationDialog = () => {
-	const [isDialogOpen, setIsDialogOpen] = useState(false);
+	const [isDialogOpen, setIsDialogOpen] = useState(false)
 
 	const createApplicationMutation = api.applicaiton.create.useMutation({
 		onSuccess: (data, variables, context) => {
-			console.log("data success", data);
-			setIsDialogOpen(false);
-			toast.success("Application created successfully ✅");
-			revalidatePath("/", "layout");
+			console.log("data success", data)
+			setIsDialogOpen(false)
+			toast.success("Application created successfully ✅")
+			revalidatePath("/", "layout")
 		},
-	});
+	})
 
 	const form = useForm<z.infer<typeof insertApplicationSchema>>({
 		resolver: zodResolver(insertApplicationSchema),
@@ -55,10 +42,10 @@ export const CreateApplicationDialog = () => {
 			companyName: "",
 			status: "pending",
 		},
-	});
+	})
 
 	function onSubmit(values: z.infer<typeof insertApplicationSchema>) {
-		createApplicationMutation.mutate(values);
+		createApplicationMutation.mutate(values)
 	}
 
 	return (
@@ -69,9 +56,7 @@ export const CreateApplicationDialog = () => {
 			<DialogContent className="sm:max-w-[425px]">
 				<DialogHeader>
 					<DialogTitle>Create an job application</DialogTitle>
-					<DialogDescription>
-						Add your job application to the list.
-					</DialogDescription>
+					<DialogDescription>Add your job application to the list.</DialogDescription>
 				</DialogHeader>
 				<div>
 					<Form {...form}>
@@ -121,5 +106,5 @@ export const CreateApplicationDialog = () => {
 				</div>
 			</DialogContent>
 		</Dialog>
-	);
-};
+	)
+}
