@@ -1,6 +1,6 @@
 "use client"
 
-import { Pencil, Trash2, Upload } from "lucide-react"
+import { Pencil, SquareArrowOutUpRight, Trash2, Upload } from "lucide-react"
 import { useRouter } from "next/navigation"
 import type { ChangeEvent } from "react"
 import { toast } from "sonner"
@@ -60,7 +60,16 @@ export const ApplicationTable = ({ applications }: ApplicationTableProps) => {
 				{applications.map((application) => (
 					<TableRow key={application.id}>
 						<TableCell className="font-medium">{application.companyName}</TableCell>
-						<TableCell>{application.vacancyUrl}</TableCell>
+						<TableCell>
+							<div className="flex items-center gap-1">
+								{application.vacancyTitle}
+								{application.vacancyUrl !== "" && (
+									<a href={application.vacancyUrl} target="_blank" rel="noreferrer">
+										<SquareArrowOutUpRight className="size-3" />
+									</a>
+								)}
+							</div>
+						</TableCell>
 						<TableCell>
 							<Select
 								value={application.status}
