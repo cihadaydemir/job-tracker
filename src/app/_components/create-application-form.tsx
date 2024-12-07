@@ -37,19 +37,13 @@ export const CreateApplicationForm = ({ setIsDialogOpen }: CreateApplicationForm
 		resolver: zodResolver(insertApplicationSchema),
 		defaultValues: {
 			companyName: "",
-			// vacancyTitle: "",
-			// vacancyUrl: "",
+			vacancyTitle: "",
+			vacancyUrl: "",
 			status: "draft",
 		},
 	})
 
-	function onSubmit(values: z.infer<typeof insertApplicationSchema>) {
-		createApplicationMutation.mutate(values)
-	}
-
-	const handleUrlValue = (value: string) => {
-		return value === "" ? undefined : value
-	}
+	const onSubmit = (values: z.infer<typeof insertApplicationSchema>) => createApplicationMutation.mutate(values)
 
 	return (
 		<Form {...form}>
@@ -92,9 +86,6 @@ export const CreateApplicationForm = ({ setIsDialogOpen }: CreateApplicationForm
 									placeholder="https://example.com/jobs/"
 									{...field}
 									value={field.value ?? undefined}
-									onChange={(e) => {
-										field.onChange(handleUrlValue(e.target.value))
-									}}
 								/>
 							</FormControl>
 							<FormMessage />
