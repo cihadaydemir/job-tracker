@@ -7,6 +7,7 @@ import { TRPCReactProvider } from "~/trpc/react"
 import { Toaster } from "~/components/ui/sonner"
 import { ThemeProvider } from "~/components/theme-provider"
 import { HydrateClient } from "~/trpc/server"
+import { Navbar } from "~/components/navbar"
 
 export const metadata: Metadata = {
 	title: "Application Tracker",
@@ -21,6 +22,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
 				<ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
 					<TRPCReactProvider>
 						<HydrateClient>
+							<Navbar />
 							<main className="flex min-h-screen w-full flex-col items-center bg-background text-foreground">
 								{children}
 							</main>

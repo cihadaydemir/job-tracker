@@ -8,7 +8,6 @@ export default async function Home() {
 
 	return (
 		<>
-			<Navbar />
 			<div className="container flex flex-col justify-center gap-12 px-4 py-16">
 				<CreateApplicationDialog />
 				<ApplicationTable applications={applications} />

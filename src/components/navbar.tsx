@@ -10,24 +10,24 @@ export function Navbar() {
 
 	return (
 		<nav className="border-b">
-			<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-				<div className="flex items-center justify-between h-16">
+			<div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+				<div className="flex h-16 items-center justify-between">
 					<div className="flex-shrink-0">
-						<span className="text-2xl font-bold">JobTrack</span>
+						<span className="font-bold text-2xl">JobTrack</span>
 					</div>
 					<div className="hidden md:block">
 						<div className="ml-10 flex items-baseline space-x-4">
 							<Link
-								href="/statistics"
-								className="text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 px-3 py-2 rounded-md text-sm font-medium"
-							>
-								Statistics
-							</Link>
-							<Link
 								href="/applications"
-								className="text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 px-3 py-2 rounded-md text-sm font-medium"
+								className="rounded-md px-3 py-2 font-medium text-gray-700 text-sm hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-800"
 							>
 								Applications
+							</Link>
+							<Link
+								href="/statistics"
+								className="rounded-md px-3 py-2 font-medium text-gray-700 text-sm hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-800"
+							>
+								Statistics
 							</Link>
 						</div>
 					</div>
@@ -39,7 +39,7 @@ export function Navbar() {
 							className="text-gray-700 dark:text-gray-200"
 							onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
 						>
-							<Sun className="h-5 w-5 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
+							<Sun className="dark:-rotate-90 h-5 w-5 rotate-0 scale-100 transition-all dark:scale-0" />
 							<Moon className="absolute h-5 w-5 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
 							<span className="sr-only">Toggle theme</span>
 						</Button>
