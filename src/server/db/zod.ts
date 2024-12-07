@@ -3,7 +3,7 @@ import { applications } from "./schema"
 import { z } from "zod"
 import { statusValues } from "./types"
 
-export const insertApplicationSchema = createInsertSchema(applications, {
+const customizedApplicaitonSchemaProps = {
 	companyName: z
 		.string({
 			required_error: "Company name is required",
@@ -20,12 +20,15 @@ export const insertApplicationSchema = createInsertSchema(applications, {
 		z.literal(""),
 	]),
 	vacancyUrl: z.union([z.string().url().optional(), z.literal("")]),
-})
+}
+
+export const insertApplicationSchema = createInsertSchema(applications, customizedApplicaitonSchemaProps)
 	.omit({
 		id: true,
 		userId: true,
 		createdAt: true,
 		updatedAt: true,
+		deletedAt: true,
 	})
 	.refine(
 		(data) => {
@@ -41,11 +44,10 @@ export const insertApplicationSchema = createInsertSchema(applications, {
 	)
 
 export const updateApplicationSchema = createInsertSchema(applications, {
-	id: z.number(),
+	...customizedApplicaitonSchemaProps,
 	status: z.enum(statusValues, {
 		required_error: "Status is required",
 	}),
-	vacancyUrl: z.string().url(),
 }).omit({
 	userId: true,
 	createdAt: true,
