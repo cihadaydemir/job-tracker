@@ -32,6 +32,10 @@ export const CreateApplicationForm = ({ setIsDialogOpen }: CreateApplicationForm
 
 	const form = useForm<z.infer<typeof insertApplicationSchema>>({
 		resolver: zodResolver(insertApplicationSchema),
+		defaultValues: {
+			companyName: "",
+			status: "draft",
+		},
 	})
 
 	function onSubmit(values: z.infer<typeof insertApplicationSchema>) {

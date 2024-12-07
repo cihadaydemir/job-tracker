@@ -4,6 +4,14 @@ import { z } from "zod"
 import { statusValues } from "./types"
 
 export const insertApplicationSchema = createInsertSchema(applications, {
+	companyName: z
+		.string({
+			required_error: "Company name is required",
+		})
+		.min(1, {
+			message: "Company name must be at least 1 character long",
+		})
+		.trim(),
 	status: z.enum(statusValues, {
 		required_error: "Status is required",
 	}),
