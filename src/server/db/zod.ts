@@ -15,7 +15,7 @@ export const insertApplicationSchema = createInsertSchema(applications, {
 })
 export const updateApplicationSchema = createInsertSchema(applications, {
 	id: z.number(),
-	status: z.enum(["pending", "accepted", "declined", "interview"], {
+	status: z.enum(statusValues, {
 		required_error: "Status is required",
 	}),
 	vacancyUrl: z.string().url(),
