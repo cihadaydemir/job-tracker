@@ -21,7 +21,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
 				<ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
 					<TRPCReactProvider>
 						<HydrateClient>
-							<main className="flex min-h-screen flex-col items-center  bg-background text-foreground w-full">
+							<main className="flex min-h-screen w-full flex-col items-center bg-background text-foreground">
 								{children}
 							</main>
 						</HydrateClient>
