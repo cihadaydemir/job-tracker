@@ -3,7 +3,7 @@ import { z } from "zod"
 
 import { createTRPCRouter, publicProcedure } from "~/server/api/trpc"
 import { applications } from "~/server/db/schema"
-import { insertApplicationSchema } from "~/server/db/zod"
+import { insertApplicationSchema, updateApplicationSchema } from "~/server/db/zod"
 
 export const applicationRouter = createTRPCRouter({
 	get: publicProcedure.query(async ({ ctx }) => {
@@ -17,4 +17,13 @@ export const applicationRouter = createTRPCRouter({
 	deleteById: publicProcedure.input(z.number()).mutation(async ({ ctx, input }) => {
 		await ctx.db.delete(applications).where(eq(applications.id, input)).run()
 	}),
+	updateById: publicProcedure
+		.input(z.object({ applicationId: z.number(), updatedApplication: updateApplicationSchema }))
+		.mutation(async ({ ctx, input }) => {
+			await ctx.db
+				.update(applications)
+				.set(input.updatedApplication)
+				.where(eq(applications.id, input.applicationId))
+				.run()
+		}),
 })

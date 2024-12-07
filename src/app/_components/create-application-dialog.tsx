@@ -12,6 +12,7 @@ import {
 
 import { useState } from "react"
 import { CreateApplicationForm } from "./create-application-form"
+import { Plus } from "lucide-react"
 
 export const CreateApplicationDialog = () => {
 	const [isDialogOpen, setIsDialogOpen] = useState(false)
@@ -19,7 +20,10 @@ export const CreateApplicationDialog = () => {
 	return (
 		<Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
 			<DialogTrigger asChild>
-				<Button>Add Application</Button>
+				<Button size={"lg"} className="max-w-min self-end">
+					<Plus className="h-4 w-4" />
+					Add Application
+				</Button>
 			</DialogTrigger>
 			<DialogContent className="sm:max-w-[425px]">
 				<DialogHeader>
