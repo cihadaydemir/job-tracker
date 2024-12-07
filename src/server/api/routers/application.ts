@@ -7,15 +7,16 @@ import { insertApplicationSchema, updateApplicationSchema } from "~/server/db/zo
 
 export const applicationRouter = createTRPCRouter({
 	get: protectedProcedure.query(async ({ ctx }) => {
-		console.log("authed user id", ctx.userId)
 		return await ctx.db.select().from(applications).where(eq(applications.userId, ctx.userId))
 	}),
 	create: protectedProcedure.input(insertApplicationSchema).mutation(async ({ ctx, input }) => {
-		console.log("authed user id", ctx.userId)
-		await ctx.db.insert(applications).values({
-			...input,
-			userId: ctx.userId,
-		})
+		return await ctx.db
+			.insert(applications)
+			.values({
+				...input,
+				userId: ctx.userId,
+			})
+			.returning()
 	}),
 	deleteById: protectedProcedure.input(z.number()).mutation(async ({ ctx, input }) => {
 		await ctx.db

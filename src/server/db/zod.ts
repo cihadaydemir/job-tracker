@@ -15,11 +15,10 @@ const customizedApplicaitonSchemaProps = {
 	status: z.enum(statusValues, {
 		required_error: "Status is required",
 	}),
-	vacancyTitle: z.union([
-		z.string().min(3, "Vacancy title must be at least 3 characters long").optional(),
-		z.literal(""),
-	]),
-	vacancyUrl: z.union([z.string().url().optional(), z.literal("")]),
+	vacancyTitle: z
+		.union([z.string().min(3, "Vacancy title must be at least 3 characters long").optional(), z.literal("")])
+		.default(""),
+	vacancyUrl: z.union([z.string().url().optional(), z.literal("")]).default(""),
 }
 
 export const insertApplicationSchema = createInsertSchema(applications, customizedApplicaitonSchemaProps)
