@@ -8,6 +8,7 @@ import { Toaster } from "~/components/ui/sonner"
 import { ThemeProvider } from "~/components/theme-provider"
 import { HydrateClient } from "~/trpc/server"
 import { Navbar } from "~/components/navbar"
+import { ClerkProvider } from "@clerk/nextjs"
 
 export const metadata: Metadata = {
 	title: "Application Tracker",
@@ -19,17 +20,19 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
 	return (
 		<html lang="en" className={`${GeistSans.variable}`} suppressHydrationWarning>
 			<body>
-				<ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
-					<TRPCReactProvider>
-						<HydrateClient>
-							<Navbar />
-							<main className="flex min-h-screen w-full flex-col items-center bg-background text-foreground">
-								{children}
-							</main>
-						</HydrateClient>
-					</TRPCReactProvider>
-					<Toaster />
-				</ThemeProvider>
+				<ClerkProvider>
+					<ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
+						<TRPCReactProvider>
+							<HydrateClient>
+								<Navbar />
+								<main className="flex min-h-screen w-full flex-col items-center bg-background text-foreground">
+									{children}
+								</main>
+							</HydrateClient>
+						</TRPCReactProvider>
+						<Toaster />
+					</ThemeProvider>
+				</ClerkProvider>
 			</body>
 		</html>
 	)

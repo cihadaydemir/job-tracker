@@ -4,6 +4,7 @@ import Link from "next/link"
 import { useTheme } from "next-themes"
 import { Moon, Sun } from "lucide-react"
 import { Button } from "~/components/ui/button"
+import { SignedOut, SignedIn, SignInButton, UserButton } from "@clerk/nextjs"
 
 export function Navbar() {
 	const { theme, setTheme } = useTheme()
@@ -43,6 +44,12 @@ export function Navbar() {
 							<Moon className="absolute h-5 w-5 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
 							<span className="sr-only">Toggle theme</span>
 						</Button>
+						<SignedOut>
+							<SignInButton />
+						</SignedOut>
+						<SignedIn>
+							<UserButton />
+						</SignedIn>
 					</div>
 				</div>
 			</div>

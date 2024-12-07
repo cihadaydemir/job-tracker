@@ -1,29 +1,35 @@
-import { eq } from "drizzle-orm"
+import { eq, and } from "drizzle-orm"
 import { z } from "zod"
 
-import { createTRPCRouter, publicProcedure } from "~/server/api/trpc"
+import { createTRPCRouter, protectedProcedure } from "~/server/api/trpc"
 import { applications } from "~/server/db/schema"
 import { insertApplicationSchema, updateApplicationSchema } from "~/server/db/zod"
 
 export const applicationRouter = createTRPCRouter({
-	get: publicProcedure.query(async ({ ctx }) => {
-		return await ctx.db.select().from(applications)
+	get: protectedProcedure.query(async ({ ctx }) => {
+		console.log("authed user id", ctx.userId)
+		return await ctx.db.select().from(applications).where(eq(applications.userId, ctx.userId))
 	}),
-	create: publicProcedure.input(insertApplicationSchema).mutation(async ({ ctx, input }) => {
+	create: protectedProcedure.input(insertApplicationSchema).mutation(async ({ ctx, input }) => {
+		console.log("authed user id", ctx.userId)
 		await ctx.db.insert(applications).values({
 			...input,
+			userId: ctx.userId,
 		})
 	}),
-	deleteById: publicProcedure.input(z.number()).mutation(async ({ ctx, input }) => {
-		await ctx.db.delete(applications).where(eq(applications.id, input)).run()
+	deleteById: protectedProcedure.input(z.number()).mutation(async ({ ctx, input }) => {
+		await ctx.db
+			.delete(applications)
+			.where(and(eq(applications.id, input), eq(applications.userId, ctx.userId)))
+			.run()
 	}),
-	updateById: publicProcedure
+	updateById: protectedProcedure
 		.input(z.object({ applicationId: z.number(), updatedApplication: updateApplicationSchema }))
 		.mutation(async ({ ctx, input }) => {
 			await ctx.db
 				.update(applications)
 				.set(input.updatedApplication)
-				.where(eq(applications.id, input.applicationId))
+				.where(and(eq(applications.id, input.applicationId), eq(applications.userId, ctx.userId)))
 				.run()
 		}),
 })
