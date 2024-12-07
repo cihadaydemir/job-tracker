@@ -11,7 +11,7 @@ import { Navbar } from "~/components/navbar"
 import { ClerkProvider } from "@clerk/nextjs"
 
 export const metadata: Metadata = {
-	title: "Application Tracker",
+	title: "Job Application Tracker",
 	description: "build by chd",
 	icons: [
 		{
