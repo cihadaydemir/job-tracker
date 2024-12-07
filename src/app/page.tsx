@@ -4,7 +4,7 @@ import { ApplicationTable } from "./_components/application-table"
 import { CreateApplicationDialog } from "./_components/create-application-dialog"
 
 export default async function Home() {
-	const applications = await api.applicaiton.get()
+	const applications = await api.application.get()
 
 	return (
 		<>

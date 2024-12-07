@@ -10,7 +10,7 @@ import { HydrateClient } from "~/trpc/server"
 
 export const metadata: Metadata = {
 	title: "Application Tracker",
-	description: "coded by chd in the 🚄",
+	description: "coded by chd",
 	icons: [{ rel: "icon", url: "/favicon.ico" }],
 }
 
