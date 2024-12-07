@@ -2,8 +2,7 @@
 // https://orm.drizzle.team/docs/sql-schema-declaration
 
 import { sql } from "drizzle-orm"
-import { index, int, integer, sqliteTableCreator, text } from "drizzle-orm/sqlite-core"
-import { z } from "zod"
+import { int, integer, sqliteTableCreator, text } from "drizzle-orm/sqlite-core"
 import type { StatusType } from "./types"
 
 /**
@@ -24,8 +23,8 @@ export const applications = createTable("applications", {
 	id: int("id", { mode: "number" }).primaryKey({ autoIncrement: true }),
 	userId: text("user_id").notNull(),
 	companyName: text("company_name", { length: 256 }).notNull(),
-	vacancyTitle: text("vacancy_title", { length: 256 }).notNull(),
-	vacancyUrl: text("vacancy_url", { length: 256 }).notNull(),
+	vacancyTitle: text("vacancy_title", { length: 256 }),
+	vacancyUrl: text("vacancy_url", { length: 256 }),
 	status: text("status").$type<StatusType>().notNull(),
 	files: text("files", { length: 256 }),
 	...baseSchema,

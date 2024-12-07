@@ -23,10 +23,13 @@ interface CreateApplicationFormProps {
 export const CreateApplicationForm = ({ setIsDialogOpen }: CreateApplicationFormProps) => {
 	const router = useRouter()
 	const createApplicationMutation = api.application.create.useMutation({
-		onSuccess: (data, variables, context) => {
+		onSuccess: (data, variables, _) => {
 			setIsDialogOpen(false)
 			router.refresh()
 			toast.success(`Application for ${variables.companyName} created successfully.`)
+		},
+		onError: (error, variables, _) => {
+			toast.error(`Application for ${variables.companyName} creation failed with error: \n${error.message}`)
 		},
 	})
 
@@ -34,12 +37,18 @@ export const CreateApplicationForm = ({ setIsDialogOpen }: CreateApplicationForm
 		resolver: zodResolver(insertApplicationSchema),
 		defaultValues: {
 			companyName: "",
+			// vacancyTitle: "",
+			// vacancyUrl: "",
 			status: "draft",
 		},
 	})
 
 	function onSubmit(values: z.infer<typeof insertApplicationSchema>) {
 		createApplicationMutation.mutate(values)
+	}
+
+	const handleUrlValue = (value: string) => {
+		return value === "" ? undefined : value
 	}
 
 	return (
@@ -53,6 +62,40 @@ export const CreateApplicationForm = ({ setIsDialogOpen }: CreateApplicationForm
 							<FormLabel>Company Name</FormLabel>
 							<FormControl>
 								<Input placeholder="Company Name" {...field} />
+							</FormControl>
+							<FormMessage />
+						</FormItem>
+					)}
+				/>
+				<FormField
+					control={form.control}
+					name="vacancyTitle"
+					render={({ field }) => (
+						<FormItem>
+							<FormLabel>Vacancy Title</FormLabel>
+							<FormControl>
+								<Input placeholder="Vacancy Title" {...field} value={field.value ?? undefined} />
+							</FormControl>
+							<FormMessage />
+						</FormItem>
+					)}
+				/>
+				<FormField
+					control={form.control}
+					name="vacancyUrl"
+					render={({ field }) => (
+						<FormItem>
+							<FormLabel>Vacany URL</FormLabel>
+							<FormControl>
+								<Input
+									type="url"
+									placeholder="https://example.com/jobs/"
+									{...field}
+									value={field.value ?? undefined}
+									onChange={(e) => {
+										field.onChange(handleUrlValue(e.target.value))
+									}}
+								/>
 							</FormControl>
 							<FormMessage />
 						</FormItem>
@@ -82,9 +125,8 @@ export const CreateApplicationForm = ({ setIsDialogOpen }: CreateApplicationForm
 						</FormItem>
 					)}
 				/>
-				<Button type="submit" disabled={!form.formState.isValid}>
-					Add
-				</Button>
+				<Button type="submit">Add</Button>
+				<pre>{JSON.stringify({ state: form.getValues(), errors: form.formState.errors }, null, 2)}</pre>
 			</form>
 		</Form>
 	)

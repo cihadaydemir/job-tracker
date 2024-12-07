@@ -30,7 +30,10 @@ export const ApplicationTable = ({ applications }: ApplicationTableProps) => {
 	})
 
 	const handleStatusChange = (applicationId: number, updatedApplication: Application) => {
-		updateApplicationMutation.mutate({ applicationId, updatedApplication })
+		updateApplicationMutation.mutate({
+			applicationId,
+			updatedApplication: { ...updatedApplication, updatedAt: new Date() },
+		})
 	}
 
 	const handleDelete = (id: number) => deleteApplicationMutation.mutate(id)
