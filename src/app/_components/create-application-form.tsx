@@ -14,6 +14,7 @@ import { useRouter } from "next/navigation"
 import { toast } from "sonner"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "~/components/ui/select"
 import { api } from "~/trpc/react"
+import { env } from "~/env"
 
 interface CreateApplicationFormProps {
 	setIsDialogOpen: (value: boolean) => void
@@ -117,7 +118,6 @@ export const CreateApplicationForm = ({ setIsDialogOpen }: CreateApplicationForm
 					)}
 				/>
 				<Button type="submit">Add</Button>
-				<pre>{JSON.stringify({ state: form.getValues(), errors: form.formState.errors }, null, 2)}</pre>
 			</form>
 		</Form>
 	)
